@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: HotFix
+  m_EditorClassIdentifier: 
+  m_GroupName: HotFix
+  m_GUID: f7f9a4b86b184064091a50d4ca6c8dae
+  m_SerializeEntries:
+  - m_GUID: 844327a1845a2354dac90dd736855070
+    m_Address: Assets/HotFixAssets/DLL
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 665bae6b9dec5f6489d9a917470c478d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ea53ba968e82e3843a291ab10e1714bc, type: 2}
+    - {fileID: 11400000, guid: 3a7fb446a2053a84f98e8abdcc76783d, type: 2}
