@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "180570677301",
+    "firebase_url": "https://bomb-battle-84bf7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bomb-battle-84bf7",
+    "storage_bucket": "bomb-battle-84bf7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180570677301:android:92a582fbd674bf876c917c",
+        "android_client_info": {
+          "package_name": "com.Jimmy.BombBattle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYyTn1QMwQoFOcZxmTaA8RvL0LNBBA1rM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
