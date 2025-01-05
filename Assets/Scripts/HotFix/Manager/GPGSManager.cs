@@ -3,6 +3,7 @@ using GooglePlayGames.BasicApi;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GPGSManager : UnitySingleton<GPGSManager>
 {
@@ -14,7 +15,8 @@ public class GPGSManager : UnitySingleton<GPGSManager>
     /// <summary>
     /// 登入Google
     /// </summary>
-    public void LoginGoogle()
+    /// <param name="callback"></param>
+    public void LoginGoogle(UnityAction callback)
     {
         PlayGamesPlatform.Activate().Authenticate((status) =>
         {
@@ -25,6 +27,13 @@ public class GPGSManager : UnitySingleton<GPGSManager>
                 string imgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
 
                 Debug.Log($"用戶登入:{userId}/ID:{nickName}");
+
+                DataManager.UserInfoData = new()
+                {
+                    UserId = userId,
+                    Nickname = nickName,
+                };
+                callback?.Invoke();
             }
             else
             {

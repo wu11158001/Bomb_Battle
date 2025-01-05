@@ -119,6 +119,6 @@ public class BasePopUpView : MonoBehaviour
             yield return null;
         }
 
-        gameObject.SetActive(false);
+        ViewManager.I.CloseCurrView();
     }
 }

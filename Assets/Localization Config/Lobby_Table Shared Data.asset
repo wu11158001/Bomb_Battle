@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: Chinese
     m_Metadata:
       m_Items: []
+  - m_Id: 425734631526400
+    m_Key: Set Nickname
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

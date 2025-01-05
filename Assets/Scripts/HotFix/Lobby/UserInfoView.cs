@@ -1,8 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UserInfoView : BasePopUpView
 {
+    [Space(30)]
+    [Header("基本訊息")]
+    [SerializeField] TextMeshProUGUI Nickname_Txt;
+    [SerializeField] Button SetNickname_Btn;
+
     [Space(30)]
     [Header("語言")]
     [SerializeField] Toggle English_Tog;
@@ -29,6 +35,8 @@ public class UserInfoView : BasePopUpView
                 English_Tog.isOn = true;
                 break;
         }
+
+        UpdateView();
     }
 
     /// <summary>
@@ -36,8 +44,15 @@ public class UserInfoView : BasePopUpView
     /// </summary>
     private void EventListener()
     {
-        #region 語言
+        #region 基本訊息
+        // 設置暱稱按鈕
+        SetNickname_Btn.onClick.AddListener(() =>
+        {
+            ViewManager.I.OpenView<RectTransform>(ViewEnum.ChangeNicknameView);
+        });
+        #endregion
 
+        #region 語言
         // 英文
         English_Tog.onValueChanged.AddListener((isOn) =>
         {
@@ -55,7 +70,6 @@ public class UserInfoView : BasePopUpView
                 LanguageManager.I.ChangeLanguage(1);
             }
         });
-
         #endregion
     }
 
@@ -64,6 +78,6 @@ public class UserInfoView : BasePopUpView
     /// </summary>
     public void UpdateView()
     {
-
+        Nickname_Txt.text = DataManager.UserInfoData.Nickname;
     }
 }

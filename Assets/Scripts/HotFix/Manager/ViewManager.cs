@@ -13,6 +13,7 @@ public enum ViewEnum
 {
     LobbyView,                      // 大廳
     UserInfoView,                   // 用戶訊息
+    ChangeNicknameView,             // 設置暱稱
 }
 
 /// <summary>
@@ -25,7 +26,7 @@ public enum PermanentViewEnum
 
 public class ViewManager : UnitySingleton<ViewManager>
 {
-    private Queue<RectTransform> _openedView = new();                                   // 已開啟介面
+    private Stack<RectTransform> _openedView = new();                                   // 已開啟介面
 
     private Dictionary<ViewEnum, RectTransform> _normalView = new();                    // 一般介面
     private Dictionary<PermanentViewEnum, RectTransform> _permanentView = new();        // 常駐介面
@@ -91,12 +92,11 @@ public class ViewManager : UnitySingleton<ViewManager>
     }
 
     /// <summary>
-    /// 關閉介面
+    /// 關閉當前介面
     /// </summary>
-    public void CloseView()
+    public void CloseCurrView()
     {
-        _openedView.Peek().gameObject.SetActive(false);
-        _openedView.Dequeue();
+        _openedView.Pop().gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -109,10 +109,11 @@ public class ViewManager : UnitySingleton<ViewManager>
     {
         if (_normalView.ContainsKey(viewEnum))
         {
-            RectTransform rt = Instantiate(_normalView[viewEnum], _canvasRt).GetComponent<RectTransform>();
+            RectTransform rt = _normalView[viewEnum];
+            rt.gameObject.SetActive(true);
             CreateViewHandle(rt, callback);
 
-            _openedView.Enqueue(rt);
+            _openedView.Push(rt);
         }
         else
         {
@@ -123,7 +124,7 @@ public class ViewManager : UnitySingleton<ViewManager>
                     RectTransform rt = Instantiate(handle.Result, _canvasRt).GetComponent<RectTransform>();
                     CreateViewHandle(rt, callback);
 
-                    _openedView.Enqueue(rt);
+                    _openedView.Push(rt);
                     _normalView.Add(viewEnum, rt);
                     Addressables.Release(handle);
                 }

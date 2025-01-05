@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: "\u4E2D\u6587"
     m_Metadata:
       m_Items: []
+  - m_Id: 425734631526400
+    m_Localized: Set Nickname
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

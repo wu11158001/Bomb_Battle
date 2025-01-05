@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Chinese
     m_Metadata:
       m_Items: []
+  - m_Id: 425734631526400
+    m_Localized: "\u8A2D\u7F6E\u66B1\u7A31"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -10,6 +10,13 @@ public class ChangeNicknameView : BasePopUpView
     [SerializeField] TMP_InputField SetNickname_If;
     [SerializeField] Button Send_Btn;
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        SetNickname_If.text = "";
+    }
+
     private void Start()
     {
         Send_Btn.onClick.AddListener(() =>
