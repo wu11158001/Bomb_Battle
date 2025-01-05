@@ -67,3 +67,5 @@ crashlytics-build.properties
 # My Fild
 HybridCLRData/
 Bundles/
+
+/[Aa]ssets/Firebase
