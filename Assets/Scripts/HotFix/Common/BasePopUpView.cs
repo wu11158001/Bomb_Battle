@@ -80,7 +80,7 @@ public class BasePopUpView : MonoBehaviour
     /// 介面關閉
     /// </summary>
     /// <returns></returns>
-    private IEnumerator ICloseView()
+    protected IEnumerator ICloseView()
     {
         float slideViewReboundPosY = 50.0f;             // 滑動介面回彈位置
         float slideViewReboundTime = 0.1f;              // 滑動介面回彈時間

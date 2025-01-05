@@ -58,4 +58,12 @@ public class UserInfoView : BasePopUpView
 
         #endregion
     }
+
+    /// <summary>
+    /// 更新介面
+    /// </summary>
+    public void UpdateView()
+    {
+
+    }
 }
