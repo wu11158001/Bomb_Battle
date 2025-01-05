@@ -2,7 +2,11 @@
     "name": "HotFix",
     "rootNamespace": "",
     "references": [
-        "Unity.Addressables"
+        "Unity.Addressables",
+        "Unity.TextMeshPro",
+        "Unity.ResourceManager",
+        "Unity.Localization",
+        "Google.Play.Games"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

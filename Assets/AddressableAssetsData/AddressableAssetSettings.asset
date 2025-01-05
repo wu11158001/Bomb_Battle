@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: f7f9a4b86b184064091a50d4ca6c8dae
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 770291406647580cfe4794767bc08dfa
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -50,18 +50,21 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 28c942c79d12e964d97e8c6c45fc396b
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: f130b587a5716874e8ae2269ac58bd4d
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 4c06e313c7692154da19e1ff47287d81, type: 2}
+  - {fileID: 11400000, guid: c40ec2df08f42dd4c98922803262394c, type: 2}
   - {fileID: 11400000, guid: a096b18d457d799468fd92ca9c0c437d, type: 2}
+  - {fileID: 11400000, guid: f1b325a5e976e1b4181f404c9523468a, type: 2}
   - {fileID: 11400000, guid: ba51035ca5ee1cf488f5c11da77091a4, type: 2}
+  - {fileID: 11400000, guid: 4273f6ba1717a244198c413d9faa79f5, type: 2}
   - {fileID: 11400000, guid: 88567985a5d0d40459d9f14b7d4a641e, type: 2}
   - {fileID: 11400000, guid: c71b03ea2716c8f41b3526c126f449a0, type: 2}
   m_BuildSettings:
@@ -74,15 +77,15 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: 28c942c79d12e964d97e8c6c45fc396b
-        m_Value: 'ServerData/[BuildTarget]'
+        m_Value: 'E:\HttpServer\BombBattle[BuildTarget]'
       - m_Id: cedd6617dd895af409d25b77d44675bd
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: 'E:\HttpServer\BombBattle[BuildTarget]'
       - m_Id: e45771a92349e514a9edc7a58b34df09
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: e6e96c8f3c3d7984399e229409013243
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_Value: 'http://127.0.0.1:8080/BombBattle[BuildTarget]'
       - m_Id: f130b587a5716874e8ae2269ac58bd4d
-        m_Value: <undefined>
+        m_Value: 'http://192.168.143.176:8080/BombBattle[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 28c942c79d12e964d97e8c6c45fc396b
       m_Name: Remote.BuildPath
