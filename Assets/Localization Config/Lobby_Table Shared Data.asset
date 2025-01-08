@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: Set Nickname
     m_Metadata:
       m_Items: []
+  - m_Id: 1442058195374080
+    m_Key: Create Room
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

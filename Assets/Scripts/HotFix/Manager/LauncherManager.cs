@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
 
 public class LauncherManager : UnitySingleton<LauncherManager>
 {
@@ -129,6 +131,8 @@ public class LauncherManager : UnitySingleton<LauncherManager>
     /// <returns></returns>
     private IEnumerator IProjectInit()
     {
+        yield return UnityServices.InitializeAsync();
+        yield return AuthenticationService.Instance.SignInAnonymouslyAsync();
         yield return ViewManager.I.IPrepare();
         yield return LanguageManager.I.Init();
 

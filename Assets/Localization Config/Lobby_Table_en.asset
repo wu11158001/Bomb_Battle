@@ -42,6 +42,10 @@ MonoBehaviour:
     m_Localized: Set Nickname
     m_Metadata:
       m_Items: []
+  - m_Id: 1442058195374080
+    m_Localized: Create Room
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

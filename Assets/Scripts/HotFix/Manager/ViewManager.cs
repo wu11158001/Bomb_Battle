@@ -14,6 +14,8 @@ public enum ViewEnum
     LobbyView,                      // 大廳
     UserInfoView,                   // 用戶訊息
     ChangeNicknameView,             // 設置暱稱
+    CreateRoomView,                 // 創建房間
+    RoomView,                       // 房間
 }
 
 /// <summary>

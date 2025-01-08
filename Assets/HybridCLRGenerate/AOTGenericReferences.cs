@@ -235,9 +235,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>
 	// UnityEngine.AddressableAssets.AddressablesImpl.<>c__DisplayClass79_0<object>
 	// UnityEngine.Events.InvokableCall<byte>
+	// UnityEngine.Events.InvokableCall<float>
 	// UnityEngine.Events.UnityAction<byte>
+	// UnityEngine.Events.UnityAction<float>
 	// UnityEngine.Events.UnityAction<object>
 	// UnityEngine.Events.UnityEvent<byte>
+	// UnityEngine.Events.UnityEvent<float>
 	// UnityEngine.Localization.Operations.GetTableEntryOperation.<>c<object,object>
 	// UnityEngine.Localization.Operations.GetTableEntryOperation<object,object>
 	// UnityEngine.Localization.Operations.LoadAllTablesOperation.<>c<object,object>
@@ -289,6 +292,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object Newtonsoft.Json.JsonConvert.DeserializeObject<object>(string,Newtonsoft.Json.JsonSerializerSettings)
 		// object System.Activator.CreateInstance<object>()
 		// bool System.Linq.Enumerable.All<System.Collections.Generic.KeyValuePair<int,byte>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,byte>>,System.Func<System.Collections.Generic.KeyValuePair<int,byte>,bool>)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,RoomView.<HandleLobbyHeartbeat>d__4>(System.Runtime.CompilerServices.TaskAwaiter&,RoomView.<HandleLobbyHeartbeat>d__4&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,CreateRoomView.<CreateRoom>d__6>(System.Runtime.CompilerServices.TaskAwaiter<object>&,CreateRoomView.<CreateRoom>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,LobbyView.<UpdateListLobbyies>d__4>(System.Runtime.CompilerServices.TaskAwaiter<object>&,LobbyView.<UpdateListLobbyies>d__4&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<CreateRoomView.<CreateRoom>d__6>(CreateRoomView.<CreateRoom>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<LobbyView.<UpdateListLobbyies>d__4>(LobbyView.<UpdateListLobbyies>d__4&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomView.<HandleLobbyHeartbeat>d__4>(RoomView.<HandleLobbyHeartbeat>d__4&)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<object>(object)
 		// System.Void UnityEngine.AddressableAssets.Addressables.Release<object>(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.AddressablesImpl.LoadAssetAsync<object>(object)

@@ -6,7 +6,11 @@
         "Unity.TextMeshPro",
         "Unity.ResourceManager",
         "Unity.Localization",
-        "Google.Play.Games"
+        "Google.Play.Games",
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "Unity.Services.Lobbies",
+        "Unity.Services.Relay"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
