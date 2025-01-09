@@ -1,0 +1,12 @@
+# ninja log v5
+1	2398	7580633359722738	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	cd20458ce01ac69b
+223	2401	7580633352360091	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	7d8aba7b2a31d860
+443	2402	7580633357297149	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	8095d9c4f0082f73
+678	2403	7580633357818817	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4b435c0afc34328c
+1227	2632	7580633364607340	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	5f79c3a357094da1
+2112	2773	7580633366177608	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	9447cf6b6bfd51ae
+932	2788	7580633366263773	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	af34adfb80c185e4
+1501	2992	7580633368254019	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	785e4b2ad63dbe36
+1801	3153	7580633369894846	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	7e35f67e3aad4dca
+2773	3419	7580633372649623	E:/MyUnityProject/Bomb Battle File/Bomb Battle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6v21j5n6/obj/arm64-v8a/libswappywrapper.so	2e06fc5c1e79c16f
+3153	3595	7580633374373604	E:/MyUnityProject/Bomb Battle File/Bomb Battle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6v21j5n6/obj/arm64-v8a/libgame.so	db12a9e79ca5cd50

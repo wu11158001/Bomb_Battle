@@ -35,7 +35,7 @@ public class ViewManager : UnitySingleton<ViewManager>
 
     private TMP_FontAsset _font;
 
-    private RectTransform _canvasRt;
+    public RectTransform CanvasRt { get; private set; }
 
     public override void Awake()
     {
@@ -80,7 +80,7 @@ public class ViewManager : UnitySingleton<ViewManager>
     /// </summary>
     private void SetCanvas()
     {
-        _canvasRt = FindAnyObjectByType<Canvas>().GetComponent<RectTransform>();
+        CanvasRt = FindAnyObjectByType<Canvas>().GetComponent<RectTransform>();
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public class ViewManager : UnitySingleton<ViewManager>
             {
                 if (handle.Result != null)
                 {
-                    RectTransform rt = Instantiate(handle.Result, _canvasRt).GetComponent<RectTransform>();
+                    RectTransform rt = Instantiate(handle.Result, CanvasRt).GetComponent<RectTransform>();
                     CreateViewHandle(rt, callback);
 
                     _openedView.Push(rt);
@@ -144,7 +144,7 @@ public class ViewManager : UnitySingleton<ViewManager>
     public RectTransform OpenSceneLoadView()
     {
         RectTransform sceneLoadView = _permanentView[PermanentViewEnum.SceneLoadView];
-        RectTransform rt = Instantiate(sceneLoadView, _canvasRt).GetComponent<RectTransform>();
+        RectTransform rt = Instantiate(sceneLoadView, CanvasRt).GetComponent<RectTransform>();
         CreateViewHandle<RectTransform>(rt);
 
         return rt;
@@ -165,7 +165,7 @@ public class ViewManager : UnitySingleton<ViewManager>
         rt.eulerAngles = Vector3.zero;
         rt.localScale = Vector3.one;
         rt.name = rt.name.Replace("(Clone)", "");
-        rt.SetSiblingIndex(_canvasRt.childCount + 1);
+        rt.SetSiblingIndex(CanvasRt.childCount + 1);
 
         // 字體
         TextMeshProUGUI[] texts = rt.GetComponentsInChildren<TextMeshProUGUI>(true);

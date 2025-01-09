@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.Services.Lobbies;
-using Unity.Services.Lobbies.Models;
 using TMPro;
 
 public class CreateRoomView : BasePopUpView
@@ -14,6 +12,8 @@ public class CreateRoomView : BasePopUpView
     private void Start()
     {
         EventListener();
+
+        MaxRoomPlaye_Txt.text = $"{(int)MaxPlayer_Sli.value}";
     }
 
     /// <summary>
@@ -30,34 +30,9 @@ public class CreateRoomView : BasePopUpView
         // 確認按鈕
         Confirm_Btn.onClick.AddListener(() =>
         {
-            RoomData roomData = new()
-            {
-                RoomName = RoomName_If.text,
-                MaxPlayer = (int)MaxPlayer_Sli.value,
-            };
-            CreateRoom(roomData);
+            string roomName = RoomName_If.text;
+            int maxPlayers = (int)MaxPlayer_Sli.value;
+            RoomManager.I.CreateRoom(roomName, maxPlayers);
         });
-    }
-
-    /// <summary>
-    /// 創建房間
-    /// </summary>
-    /// <param name="roomData"></param>
-    private async void CreateRoom(RoomData roomData)
-    {
-        try
-        {
-            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(roomData.RoomName, roomData.MaxPlayer);
-
-            ViewManager.I.CloseCurrView();
-            ViewManager.I.OpenView<RoomView>(ViewEnum.RoomView, (view) =>
-            {
-                view.SetRoomInfo(lobby, roomData);
-            });
-        }
-        catch (LobbyServiceException e)
-        {
-            Debug.LogError(e);
-        }
     }
 }
