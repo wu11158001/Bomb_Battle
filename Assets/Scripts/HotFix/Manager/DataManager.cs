@@ -24,4 +24,8 @@ public static class DataManager
         });
     }
     #endregion
+
+    #region 遊戲資料
+    public static int MaxRoomPlayers = 4;                       //最大房間數量
+    #endregion
 }

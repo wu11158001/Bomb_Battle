@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Services.Authentication;
 
 public class CreateRoomView : BasePopUpView
 {
@@ -12,8 +13,6 @@ public class CreateRoomView : BasePopUpView
     private void Start()
     {
         EventListener();
-
-        MaxRoomPlaye_Txt.text = $"{(int)MaxPlayer_Sli.value}";
     }
 
     /// <summary>
@@ -32,7 +31,29 @@ public class CreateRoomView : BasePopUpView
         {
             string roomName = RoomName_If.text;
             int maxPlayers = (int)MaxPlayer_Sli.value;
-            RoomManager.I.CreateRoom(roomName, maxPlayers);
+            RoomManager.I.CreateRoom(roomName, maxPlayers, (joinLobby) =>
+            {
+                ViewManager.I.CloseCurrView();
+                ViewManager.I.CloseCurrView();
+                ViewManager.I.OpenView<RoomView>(ViewEnum.RoomView, (view) =>
+                {
+                    view.SetRoomInfo(joinLobby);
+                });
+            });
         });
+    }
+
+    /// <summary>
+    /// 設置創建房間介面
+    /// </summary>
+    public void SetCreateRoomView()
+    {
+        MaxPlayer_Sli.minValue = 2;
+        MaxPlayer_Sli.maxValue = DataManager.MaxRoomPlayers;
+        MaxPlayer_Sli.value = DataManager.MaxRoomPlayers;
+
+        MaxRoomPlaye_Txt.text = $"{(int)MaxPlayer_Sli.value}";
+
+        RoomName_If.text = DataManager.UserInfoData.Nickname;
     }
 }

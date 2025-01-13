@@ -22,7 +22,14 @@ public class RoomItem : MonoBehaviour
         Join_Btn.onClick.RemoveAllListeners();
         Join_Btn.onClick.AddListener(() =>
         {
-            RoomManager.I.JoinRoom(lobby);
+            RoomManager.I.JoinRoom(lobby, (joinLobby) =>
+            {
+                ViewManager.I.CloseCurrView();
+                ViewManager.I.OpenView<RoomView>(ViewEnum.RoomView, (view) =>
+                {
+                    view.SetRoomInfo(joinLobby);
+                });
+            });
         });
     }
 }

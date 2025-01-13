@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3df6e78e9128d94da5fb87117755072
+    m_Address: Assets/Localization Config/Room_Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dfe35267bea79a74cbb5b23ec0aa9443
     m_Address: Assets/Localization Config/Universal_Table Shared Data.asset
     m_ReadOnly: 1

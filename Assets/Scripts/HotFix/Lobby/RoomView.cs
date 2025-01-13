@@ -1,19 +1,27 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using TMPro;
 using Unity.Services.Authentication;
+using System.Linq;
 
 public class RoomView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI RoomName_Txt;
     [SerializeField] Button LeaveRoom_Btn;
+    [SerializeField] Button Start_Btn;
+    [SerializeField] TextMeshProUGUI StartBtn_Txt;
 
-    [SerializeField] Button TestBtn;
+    [Space(30)]
+    [Header("玩家列表")]
+    [SerializeField] RectTransform ListPlayersNode;
+    [SerializeField] GameObject RoomPlayerItemSample;
 
-    private Lobby _joinLobby;
-    private float _heartbeatTimer;
+    private List<RoomPlayerItem> _roomPlayerItemsList;
+    private bool _isPrepare;
 
     private void OnDestroy()
     {
@@ -30,13 +38,13 @@ public class RoomView : MonoBehaviour
     private void OnEnable()
     {
         InvokeRepeating(nameof(HandleLobbyHeartbeat), 15, 15);
-        InvokeRepeating(nameof(UpdateLobby), 1.1f, 1.1f);
+        InvokeRepeating(nameof(UpdateLobby), 0, 1.1f);
     }
-
 
     private void Start()
     {
         EventListener();
+        CreatePlayerItem();
     }
 
     /// <summary>
@@ -52,12 +60,19 @@ public class RoomView : MonoBehaviour
             ViewManager.I.OpenView<RectTransform>(ViewEnum.LobbyView);
         });
 
-
-
-
-        TestBtn.onClick.AddListener(() =>
+        // 開始/準備按鈕
+        Start_Btn.onClick.AddListener(() =>
         {
-            RoomManager.I.UpdateLobbyData(LobbyDataKeyEnum.Map, "3");
+            _isPrepare = !_isPrepare;
+            if (RoomManager.I.IsRoomHost())
+            {
+                /*室長*/
+
+            }
+            else
+            {
+                RoomManager.I.UpdatePlayerData(LobbyPlayerDataKeyEnum.IsPrepare, $"{_isPrepare}");
+            }            
         });
     }
 
@@ -70,30 +85,55 @@ public class RoomView : MonoBehaviour
     }
 
     /// <summary>
+    /// 創建玩家項目
+    /// </summary>
+    private void CreatePlayerItem()
+    {
+        _roomPlayerItemsList = new();
+        RoomPlayerItemSample.SetActive(false);
+        for (int i = 0; i < DataManager.MaxRoomPlayers; i++)
+        {
+            GameObject obj = Instantiate(RoomPlayerItemSample, ListPlayersNode);
+            obj.SetActive(true);
+            _roomPlayerItemsList.Add(obj.GetComponent<RoomPlayerItem>()); 
+        }
+    }
+
+    /// <summary>
     /// 更新房間
     /// </summary>
-    private async void UpdateLobby()
+    private void UpdateLobby()
     {
-        if (_joinLobby != null)
+        RoomManager.I.RefreshRoom((joinLobby) =>
         {
-            Lobby lobby = await LobbyService.Instance.GetLobbyAsync(_joinLobby.Id);
-
             // 被踢除或房間關閉
-            if (lobby == null)
+            if (!joinLobby.Players.Any(x => x.Id == AuthenticationService.Instance.PlayerId))
             {
                 ViewManager.I.CloseCurrView();
                 ViewManager.I.OpenView<RectTransform>(ViewEnum.LobbyView);
                 return;
             }
-            _joinLobby = lobby;
-        }
 
-        Debug.Log($"房間地圖:{_joinLobby.Data[$"{LobbyDataKeyEnum.Map}"].Value}");
-        Debug.Log($"房主:{_joinLobby.HostId}");
-        foreach (Player player in _joinLobby.Players)
-        {
-            Debug.Log($"房間玩家:{player.Data[$"{LobbyDataKeyEnum.PlayerName}"].Value}");
-        }
+            for (int i = 0; i < DataManager.MaxRoomPlayers; i++)
+            {
+                bool isLock = i >= joinLobby.MaxPlayers;
+                _roomPlayerItemsList[i].SetEmptyRoomPlayerItem(isLock);
+            }
+
+            Debug.Log($"房間地圖:{joinLobby.Data[$"{LobbyDataKeyEnum.Map}"].Value}");
+            int index = 0;
+            foreach (Player player in joinLobby.Players)
+            {
+                bool isPlayerHost = joinLobby.HostId == player.Id;
+                bool isSelfHost = RoomManager.I.IsRoomHost();
+                _roomPlayerItemsList[index++].SetRoomPlayerItem(player, isPlayerHost, isSelfHost);
+            }
+
+            // 準備/開始按鈕
+            StartBtn_Txt.text = RoomManager.I.IsRoomHost() ?
+                LanguageManager.I.GetString(LocalizationTableEnum.Room_Table, "Start") :
+                LanguageManager.I.GetString(LocalizationTableEnum.Room_Table, "Prepare");
+        });
     }
 
     /// <summary>
@@ -102,8 +142,13 @@ public class RoomView : MonoBehaviour
     /// <param name="joinLobby"></param>
     public void SetRoomInfo(Lobby joinLobby)
     {
-        _joinLobby = joinLobby;
-
         RoomName_Txt.text = $"{joinLobby.Name}";
+
+        if (RoomManager.I.IsRoomHost())
+        {
+            /*室長*/
+            
+            RoomManager.I.UpdatePlayerData(LobbyPlayerDataKeyEnum.IsPrepare, $"{true}");
+        }
     }
 }

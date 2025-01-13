@@ -62,21 +62,35 @@ public class LobbyView : MonoBehaviour
 
         #region 房間按鈕
         // 快速加入房間按鈕
-        QuickJoinRoom_Btn.onClick.AddListener(async () =>
+        QuickJoinRoom_Btn.onClick.AddListener(() =>
         {
-            try
+            RoomManager.I.QuickJoinRoom((joinLobby) =>
             {
-                await Lobbies.Instance.QuickJoinLobbyAsync();
-            }
-            catch(LobbyServiceException e)
+                /*加入房間*/
+
+                ViewManager.I.CloseCurrView();
+                ViewManager.I.OpenView<RoomView>(ViewEnum.RoomView, (view) =>
+                {
+                    view.SetRoomInfo(joinLobby);
+                });
+            }, 
+            () =>
             {
-                Debug.LogError($"喎速加入房間錯誤:{e}");
-            }
+                /*未找到符合房間*/
+
+                ViewManager.I.OpenView<CreateRoomView>(ViewEnum.CreateRoomView, (view) =>
+                {
+                    view.SetCreateRoomView();
+                });
+            });
         });
         // 創建房間
         CreateRoom_Btn.onClick.AddListener(() =>
         {
-            ViewManager.I.OpenView<RectTransform>(ViewEnum.CreateRoomView);
+            ViewManager.I.OpenView<CreateRoomView>(ViewEnum.CreateRoomView, (view) =>
+            {
+                view.SetCreateRoomView();
+            });
         });
 
         // 刷新房間列表按鈕
@@ -101,28 +115,31 @@ public class LobbyView : MonoBehaviour
     /// <param name="queryResponse"></param>
     private void RefreshListRooms(QueryResponse queryResponse)
     {
-        if (queryResponse.Results.Count > 0)
+        List<GameObject> roomItems = _objPool.GetObjList(RoomItemSample);
+        foreach (var item in roomItems)
         {
-            List<GameObject> roomItems = _objPool.GetObjList(RoomItemSample);
-            int index = 0;
-            foreach (var lobby in queryResponse.Results)
-            {
-                // 產生房間項目
-                Debug.Log($"房間名:{lobby.Name}, 最大人數:{lobby.MaxPlayers}, HostId:{lobby.HostId}, Id:{lobby.Id}, code:{lobby.LobbyCode}");
-                RoomItem roomItem = null;
-                if (index >= roomItems.Count)
-                {
-                    roomItem = _objPool.CreateObj<RoomItem>(RoomItemSample, ListRoomNode);
-                }
-                else
-                {
-                    roomItem = roomItems[index].GetComponent<RoomItem>();
-                }
-                roomItem.SetRoomItemInfo(lobby);
-                index++;
-            }
-
-            Utils.I.SetGridLayoutSize(ListRoomNode, false, 4);
+            item.SetActive(false);
         }
+
+        int index = 0;
+        foreach (var lobby in queryResponse.Results)
+        {
+            // 產生房間項目
+            Debug.Log($"房間名:{lobby.Name}, 最大人數:{lobby.MaxPlayers}, HostId:{lobby.HostId}, Id:{lobby.Id}, code:{lobby.LobbyCode}");
+            RoomItem roomItem = null;
+            if (index >= roomItems.Count)
+            {
+                roomItem = _objPool.CreateObj<RoomItem>(RoomItemSample, ListRoomNode);
+            }
+            else
+            {
+                roomItem = roomItems[index].GetComponent<RoomItem>();
+            }
+            roomItem.gameObject.SetActive(true);
+            roomItem.SetRoomItemInfo(lobby);
+            index++;
+        }
+
+        Utils.I.SetGridLayoutSize(ListRoomNode, false, 4);
     }
 }

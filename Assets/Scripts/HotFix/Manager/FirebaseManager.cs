@@ -223,4 +223,40 @@ public class FirebaseManager : UnitySingleton<FirebaseManager>
             }
         };
     }
+
+    /// <summary>
+    /// 開始監聽在線偵測
+    /// </summary>
+    public void StartListenerForOnline()
+    {
+        DatabaseReference userStatusRef = _databaseRef.Child($"{GetUserDataRoot()}/isOnline");
+
+        FirebaseDatabase.DefaultInstance.GetReference(".info/connected").ValueChanged += (sender, args) =>
+        {
+            if (args.DatabaseError != null)
+            {
+                Debug.LogError("Database error: " + args.DatabaseError.Message);
+                return;
+            }
+
+            bool isConnected = (bool)args.Snapshot.Value;
+            if (isConnected)
+            {
+                // 當連接時，設置在線狀態為 true
+                userStatusRef.SetValueAsync(true).ContinueWith(task =>
+                {
+                    if (task.IsCompleted)
+                    {
+                        // 設置斷開連接時，Firebase 自動將在線狀態設置為 false
+                        userStatusRef.OnDisconnect().SetValue(false);
+                        RoomManager.I.UpdatePlayerData(LobbyPlayerDataKeyEnum.IsOnline, "False");
+                    }
+                });
+            }
+            else
+            {
+                Debug.Log("與 Firebase 斷開連線!!!");
+            }
+        };
+    }
 }

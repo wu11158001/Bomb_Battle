@@ -136,6 +136,7 @@ public class LauncherManager : UnitySingleton<LauncherManager>
         yield return ViewManager.I.IPrepare();
         yield return LanguageManager.I.Init();
 
+        FirebaseManager.I.StartListenerForOnline();
         SceneManager.I.ChangeScene(SceneEnum.Lobby);
     }
 }

@@ -4,20 +4,31 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
 
 /// <summary>
 /// 房間資料字典Key列表
 /// </summary>
 public enum LobbyDataKeyEnum
 {
-    PlayerName,             // 玩家名稱
     Map,                    // 地圖
+}
+
+/// <summary>
+/// 房間玩家資料字典Key列表
+/// </summary>
+public enum LobbyPlayerDataKeyEnum
+{
+    PlayerName,             // 玩家名稱
+    Character,              // 玩家角色
+    IsPrepare,              // 準備狀態(True/False)
 }
 
 public class RoomManager : UnitySingleton<RoomManager>
 {
-    private Lobby _hostLobby;
-    private Lobby _joinLobby;
+    public Lobby JoinLobby { get; private set; }                // 加入的房間
 
     public override void Awake()
     {
@@ -29,10 +40,24 @@ public class RoomManager : UnitySingleton<RoomManager>
     /// </summary>
     public async void HandleLobbyHeartbeat()
     {
-        if (_hostLobby != null)
+        if (IsRoomHost())
         {
-            await LobbyService.Instance.SendHeartbeatPingAsync(_hostLobby.Id);
+            await LobbyService.Instance.SendHeartbeatPingAsync(JoinLobby.Id);
         }
+    }
+
+    /// <summary>
+    /// 是否是室長
+    /// </summary>
+    /// <returns></returns>
+    public bool IsRoomHost()
+    {
+        if (JoinLobby != null)
+        {
+            return JoinLobby.HostId == AuthenticationService.Instance.PlayerId;
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -45,7 +70,9 @@ public class RoomManager : UnitySingleton<RoomManager>
         {
             Data = new Dictionary<string, PlayerDataObject>()
             {
-                {  $"{LobbyDataKeyEnum.PlayerName}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, DataManager.UserInfoData.Nickname)},
+                { $"{LobbyPlayerDataKeyEnum.PlayerName}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, DataManager.UserInfoData.Nickname)},
+                { $"{LobbyPlayerDataKeyEnum.Character}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "1")},
+                { $"{LobbyPlayerDataKeyEnum.IsPrepare}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "Fales")},
             }
         };
     }
@@ -71,7 +98,10 @@ public class RoomManager : UnitySingleton<RoomManager>
             QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
             Debug.Log($"房間數量:{queryResponse.Results.Count}");
 
-            callback?.Invoke(queryResponse);
+            UnityMainThreadDispatcher.I.Enqueue(() =>
+            {
+                callback?.Invoke(queryResponse);
+            });
         }
         catch (LobbyServiceException e)
         {
@@ -80,11 +110,34 @@ public class RoomManager : UnitySingleton<RoomManager>
     }
 
     /// <summary>
+    /// 刷新房間
+    /// </summary>
+    /// <param name="callback"></param>
+    public async void RefreshRoom(UnityAction<Lobby> callback)
+    {
+        try
+        {
+            Lobby lobby = await Lobbies.Instance.GetLobbyAsync(JoinLobby.Id);
+            JoinLobby = lobby;
+
+            UnityMainThreadDispatcher.I.Enqueue(() =>
+            {
+                callback?.Invoke(JoinLobby);
+            }); 
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.LogError($"刷新房間錯誤:{e}");
+        }
+    }
+
+    /// <summary>
     /// 創建房間
     /// </summary>
     /// <param name="roomName"></param>
     /// <param name="maxPlayers"></param>
-    public async void CreateRoom(string roomName, int maxPlayers)
+    /// <param name="callback"></param>
+    public async void CreateRoom(string roomName, int maxPlayers, UnityAction<Lobby> callback)
     {
         try
         {
@@ -98,14 +151,11 @@ public class RoomManager : UnitySingleton<RoomManager>
                 },
             };
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(roomName, maxPlayers, createLobbyOptions);
-            _hostLobby = lobby;
-            _joinLobby = _hostLobby;
+            JoinLobby = lobby;
 
-            ViewManager.I.CloseCurrView();
-            ViewManager.I.CloseCurrView();
-            ViewManager.I.OpenView<RoomView>(ViewEnum.RoomView, (view) =>
+            UnityMainThreadDispatcher.I.Enqueue(() =>
             {
-                view.SetRoomInfo(_joinLobby);
+                callback?.Invoke(JoinLobby);
             });
         }
         catch (LobbyServiceException e)
@@ -118,7 +168,8 @@ public class RoomManager : UnitySingleton<RoomManager>
     /// 加入房間
     /// </summary>
     /// <param name="joinLobby"></param>
-    public async void JoinRoom(Lobby joinLobby)
+    /// <param name="callback"></param>
+    public async void JoinRoom(Lobby joinLobby, UnityAction<Lobby> callback)
     {
         try
         {
@@ -128,17 +179,48 @@ public class RoomManager : UnitySingleton<RoomManager>
             };
 
             Lobby lobby = await Lobbies.Instance.JoinLobbyByIdAsync(joinLobby.Id, joinLobbyByIdOptions);
-            _joinLobby = lobby;
+            JoinLobby = lobby;
 
-            ViewManager.I.CloseCurrView();
-            ViewManager.I.OpenView<RoomView>(ViewEnum.RoomView, (view) =>
+            UnityMainThreadDispatcher.I.Enqueue(() =>
             {
-                view.SetRoomInfo(_joinLobby);
+                callback?.Invoke(JoinLobby);
             });
         }
         catch (LobbyServiceException e)
         {
             Debug.LogError($"加入房間錯誤:{e}");
+        }
+    }
+
+    /// <summary>
+    /// 快速加入房間
+    /// </summary>
+    /// <param name="callback"></param>
+    /// <param name="notFindCallback"></param>
+    public async void QuickJoinRoom(UnityAction<Lobby> callback, UnityAction notFindCallback)
+    {
+        try
+        {
+            QuickJoinLobbyOptions quickJoinLobbyOptions = new()
+            {
+                Player = GetRoomPlayer(),
+            };
+
+            Lobby lobby = await Lobbies.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
+            JoinLobby = lobby;
+
+            UnityMainThreadDispatcher.I.Enqueue(() =>
+            {
+                callback?.Invoke(JoinLobby);
+            });
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log($"'快速加入房間'未找到房間:{e}");
+            UnityMainThreadDispatcher.I.Enqueue(() =>
+            {
+                notFindCallback?.Invoke();
+            });
         }
     }
 
@@ -149,7 +231,11 @@ public class RoomManager : UnitySingleton<RoomManager>
     {
         try
         {
-            await LobbyService.Instance.RemovePlayerAsync(_joinLobby.Id, AuthenticationService.Instance.PlayerId);
+            if (JoinLobby != null)
+            {
+                await LobbyService.Instance.RemovePlayerAsync(JoinLobby.Id, AuthenticationService.Instance.PlayerId);
+                JoinLobby = null;
+            }
         }
         catch (LobbyServiceException e)
         {
@@ -160,18 +246,45 @@ public class RoomManager : UnitySingleton<RoomManager>
     /// <summary>
     /// 踢除玩家
     /// </summary>
-    /// <param name="playerIndex"></param>
-    public async void KickPlayer(int playerIndex)
+    /// <param name="playerId"></param>
+    public async void KickPlayer(string playerId)
     {
         try
         {
-            if (_hostLobby == null) return;
+            if (!IsRoomHost()) return;
 
-            await LobbyService.Instance.RemovePlayerAsync(_joinLobby.Id, _joinLobby.Players[playerIndex].Id);
+            await LobbyService.Instance.RemovePlayerAsync(JoinLobby.Id, playerId);
         }
         catch (LobbyServiceException e)
         {
             Debug.LogError($"離開房間錯誤:{e}");
+        }
+    }
+
+    /// <summary>
+    /// 更新房間玩家資料
+    /// </summary>
+    /// <param name="updateKey"></param>
+    /// <param name="updateValue"></param>
+    public async void UpdatePlayerData(LobbyPlayerDataKeyEnum updateKey, string updateValue)
+    {
+        try
+        {
+            if (JoinLobby != null)
+            {
+                Debug.LogError($"修改資料:{updateKey}:{updateValue}");
+                await LobbyService.Instance.UpdatePlayerAsync(JoinLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions()
+                {
+                    Data = new Dictionary<string, PlayerDataObject>()
+                    {
+                        { $"{updateKey}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, updateValue)}
+                    },
+                });
+            }  
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.LogError($"更新房間玩家資料錯誤:{e}");
         }
     }
 
@@ -184,28 +297,15 @@ public class RoomManager : UnitySingleton<RoomManager>
     {
         try
         {
-            if (_hostLobby == null) return;
-
-            _hostLobby = await Lobbies.Instance.UpdateLobbyAsync(_hostLobby.Id, new UpdateLobbyOptions()
+            if (!IsRoomHost()) return;
+            
+            JoinLobby = await Lobbies.Instance.UpdateLobbyAsync(JoinLobby.Id, new UpdateLobbyOptions()
             {
                 Data = new Dictionary<string, DataObject>()
                 {
-                    { $"{updateKey}", new DataObject(DataObject.VisibilityOptions.Public, updateValue)}
+                    { $"{updateKey}", new DataObject(DataObject.VisibilityOptions.Member, updateValue)}
                 },
             });
-
-            _joinLobby = _hostLobby;
-
-            // 接收房主
-            if (_joinLobby.HostId == AuthenticationService.Instance.PlayerId)
-            {
-                _hostLobby = _joinLobby;
-            }
-            else
-            {
-                // 解除房主
-                if (_hostLobby != null) _hostLobby = null;
-            }
         }
         catch (LobbyServiceException e)
         {
@@ -214,25 +314,25 @@ public class RoomManager : UnitySingleton<RoomManager>
     }
 
     /// <summary>
-    /// 更換房主
+    /// 轉讓室長
     /// </summary>
-    /// <param name="playerIndex"></param>
-    public async void MigrateLobbyHost(int playerIndex)
+    /// <param name="playerId"></param>
+    public async void TransferRoomHost(string playerId)
     {
         try
         {
-            if (_hostLobby == null) return;
+            if (!IsRoomHost()) return;
 
-            _hostLobby = await Lobbies.Instance.UpdateLobbyAsync(_hostLobby.Id, new UpdateLobbyOptions()
+            JoinLobby = await Lobbies.Instance.UpdateLobbyAsync(JoinLobby.Id, new UpdateLobbyOptions()
             {
-                HostId = _joinLobby.Players[playerIndex].Id,
+                HostId = playerId,
             });
 
-            _joinLobby = _hostLobby;
+            UpdatePlayerData(LobbyPlayerDataKeyEnum.IsPrepare, $"{false}");
         }
         catch (LobbyServiceException e)
         {
-            Debug.LogError($"更換房主錯誤:{e}");
+            Debug.LogError($"更換室長錯誤:{e}");
         }
     }
 
@@ -243,9 +343,10 @@ public class RoomManager : UnitySingleton<RoomManager>
     {
         try
         {
-            if (_hostLobby == null) return;
+            if (!IsRoomHost()) return;
 
-            await Lobbies.Instance.DeleteLobbyAsync(_joinLobby.Id);
+            await Lobbies.Instance.DeleteLobbyAsync(JoinLobby.Id);
+            JoinLobby = null;
         }
         catch (LobbyServiceException e)
         {
