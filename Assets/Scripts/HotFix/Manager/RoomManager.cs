@@ -5,14 +5,15 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.Services.Relay;
-using Unity.Services.Relay.Models;
+using System;
 
 /// <summary>
 /// 房間資料字典Key列表
 /// </summary>
 public enum LobbyDataKeyEnum
 {
+    RelayJoinCode,          // Relay加入權杖
+    RelayConnectionType,    // Relay通訊方式
     Map,                    // 地圖
 }
 
@@ -61,20 +62,38 @@ public class RoomManager : UnitySingleton<RoomManager>
     }
 
     /// <summary>
-    /// 獲取房間玩家
+    /// 初始化房間玩家
     /// </summary>
     /// <returns></returns>
-    private Player GetRoomPlayer()
+    private Player InitRoomPlayer()
     {
         return new Player()
         {
             Data = new Dictionary<string, PlayerDataObject>()
             {
                 { $"{LobbyPlayerDataKeyEnum.PlayerName}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, DataManager.UserInfoData.Nickname)},
-                { $"{LobbyPlayerDataKeyEnum.Character}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "1")},
+                { $"{LobbyPlayerDataKeyEnum.Character}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "0")},
                 { $"{LobbyPlayerDataKeyEnum.IsPrepare}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "Fales")},
             }
         };
+    }
+
+    /// <summary>
+    /// 獲取本地玩家Player
+    /// </summary>
+    /// <returns></returns>
+    public Player GetLocalPlayer()
+    {
+        foreach (Player player in JoinLobby.Players)
+        {
+            if (player.Id == AuthenticationService.Instance.PlayerId)
+            {
+                return player;
+            }
+        }
+
+        Debug.LogError("Lobby未找到Player");
+        return null;
     }
 
     /// <summary>
@@ -144,10 +163,12 @@ public class RoomManager : UnitySingleton<RoomManager>
             CreateLobbyOptions createLobbyOptions = new()
             {
                 IsPrivate = false,
-                Player = GetRoomPlayer(),
+                Player = InitRoomPlayer(),
                 Data = new Dictionary<string, DataObject>()
                 {
-                    { $"{LobbyDataKeyEnum.Map}", new DataObject(DataObject.VisibilityOptions.Public, "0")}
+                    { $"{LobbyDataKeyEnum.RelayJoinCode}", new DataObject(DataObject.VisibilityOptions.Member, "")},
+                    { $"{LobbyDataKeyEnum.RelayConnectionType}", new DataObject(DataObject.VisibilityOptions.Member, "")},
+                    { $"{LobbyDataKeyEnum.Map}", new DataObject(DataObject.VisibilityOptions.Public, "0")},
                 },
             };
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(roomName, maxPlayers, createLobbyOptions);
@@ -172,10 +193,10 @@ public class RoomManager : UnitySingleton<RoomManager>
     public async void JoinRoom(Lobby joinLobby, UnityAction<Lobby> callback)
     {
         try
-        {
+        {           
             JoinLobbyByIdOptions joinLobbyByIdOptions = new()
             {
-                Player = GetRoomPlayer(),
+                Player = InitRoomPlayer(),
             };
 
             Lobby lobby = await Lobbies.Instance.JoinLobbyByIdAsync(joinLobby.Id, joinLobbyByIdOptions);
@@ -203,7 +224,7 @@ public class RoomManager : UnitySingleton<RoomManager>
         {
             QuickJoinLobbyOptions quickJoinLobbyOptions = new()
             {
-                Player = GetRoomPlayer(),
+                Player = InitRoomPlayer(),
             };
 
             Lobby lobby = await Lobbies.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
@@ -233,6 +254,7 @@ public class RoomManager : UnitySingleton<RoomManager>
         {
             if (JoinLobby != null)
             {
+                CancelInvoke(nameof(HandleLobbyHeartbeat));
                 await LobbyService.Instance.RemovePlayerAsync(JoinLobby.Id, AuthenticationService.Instance.PlayerId);
                 JoinLobby = null;
             }
@@ -264,21 +286,16 @@ public class RoomManager : UnitySingleton<RoomManager>
     /// <summary>
     /// 更新房間玩家資料
     /// </summary>
-    /// <param name="updateKey"></param>
-    /// <param name="updateValue"></param>
-    public async void UpdatePlayerData(LobbyPlayerDataKeyEnum updateKey, string updateValue)
+    /// <param name="dataDic"></param>
+    public async void UpdatePlayerData(Dictionary<string, PlayerDataObject> dataDic)
     {
         try
         {
             if (JoinLobby != null)
             {
-                Debug.LogError($"修改資料:{updateKey}:{updateValue}");
                 await LobbyService.Instance.UpdatePlayerAsync(JoinLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions()
                 {
-                    Data = new Dictionary<string, PlayerDataObject>()
-                    {
-                        { $"{updateKey}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, updateValue)}
-                    },
+                    Data = dataDic,
                 });
             }  
         }
@@ -291,20 +308,16 @@ public class RoomManager : UnitySingleton<RoomManager>
     /// <summary>
     /// 更新房間資料
     /// </summary>
-    /// <param name="updateKey"></param>
-    /// <param name="updateValue"></param>
-    public async void UpdateLobbyData(LobbyDataKeyEnum updateKey, string updateValue)
+    /// <param name="dataDic"></param>
+    public async void UpdateLobbyData(Dictionary<string, DataObject> dataDic)
     {
         try
         {
             if (!IsRoomHost()) return;
-            
+
             JoinLobby = await Lobbies.Instance.UpdateLobbyAsync(JoinLobby.Id, new UpdateLobbyOptions()
             {
-                Data = new Dictionary<string, DataObject>()
-                {
-                    { $"{updateKey}", new DataObject(DataObject.VisibilityOptions.Member, updateValue)}
-                },
+                Data = dataDic,
             });
         }
         catch (LobbyServiceException e)
@@ -328,7 +341,11 @@ public class RoomManager : UnitySingleton<RoomManager>
                 HostId = playerId,
             });
 
-            UpdatePlayerData(LobbyPlayerDataKeyEnum.IsPrepare, $"{false}");
+            Dictionary<string, PlayerDataObject> dataDic = new()
+            {
+                { $"{LobbyPlayerDataKeyEnum.IsPrepare}", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "False") }
+            };
+            UpdatePlayerData(dataDic);
         }
         catch (LobbyServiceException e)
         {

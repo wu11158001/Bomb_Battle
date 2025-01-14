@@ -10,7 +10,10 @@
         "Unity.Services.Core",
         "Unity.Services.Authentication",
         "Unity.Services.Lobbies",
-        "Unity.Services.Relay"
+        "Unity.Services.Relay",
+        "Unity.Networking.Transport",
+        "Unity.Netcode.Runtime",
+        "Unity.Services.Core.Networking"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

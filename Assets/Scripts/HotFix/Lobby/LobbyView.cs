@@ -125,7 +125,6 @@ public class LobbyView : MonoBehaviour
         foreach (var lobby in queryResponse.Results)
         {
             // 產生房間項目
-            Debug.Log($"房間名:{lobby.Name}, 最大人數:{lobby.MaxPlayers}, HostId:{lobby.HostId}, Id:{lobby.Id}, code:{lobby.LobbyCode}");
             RoomItem roomItem = null;
             if (index >= roomItems.Count)
             {
@@ -141,5 +140,7 @@ public class LobbyView : MonoBehaviour
         }
 
         Utils.I.SetGridLayoutSize(ListRoomNode, false, 4);
+
+        SceneChangeManager.I.CloseSceneLoadView();
     }
 }

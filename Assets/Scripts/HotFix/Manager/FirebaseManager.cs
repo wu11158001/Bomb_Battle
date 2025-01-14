@@ -249,7 +249,6 @@ public class FirebaseManager : UnitySingleton<FirebaseManager>
                     {
                         // 設置斷開連接時，Firebase 自動將在線狀態設置為 false
                         userStatusRef.OnDisconnect().SetValue(false);
-                        RoomManager.I.UpdatePlayerData(LobbyPlayerDataKeyEnum.IsOnline, "False");
                     }
                 });
             }

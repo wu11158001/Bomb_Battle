@@ -55,39 +55,46 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<int,byte>
 	// System.Collections.Generic.Dictionary.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.Enumerator<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.Dictionary.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<System.Guid,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,byte>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<System.Guid,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.KeyCollection<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,byte>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<System.Guid,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,byte>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<System.Guid,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.ValueCollection<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,byte>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,object>
 	// System.Collections.Generic.Dictionary<System.Guid,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.Dictionary<int,byte>
 	// System.Collections.Generic.Dictionary<int,object>
 	// System.Collections.Generic.Dictionary<long,object>
+	// System.Collections.Generic.Dictionary<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.Dictionary<object,object>
 	// System.Collections.Generic.EqualityComparer<System.Guid>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>>
+	// System.Collections.Generic.EqualityComparer<System.ValueTuple<object,object>>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.Localization.LocaleIdentifier>
 	// System.Collections.Generic.EqualityComparer<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.EqualityComparer<byte>
@@ -101,6 +108,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,byte>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<object,object>>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>>
 	// System.Collections.Generic.ICollection<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
@@ -116,6 +124,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,byte>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<object,object>>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Localization.Tables.TableReference>
@@ -128,6 +137,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,byte>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,System.ValueTuple<object,object>>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Localization.Tables.TableReference>
@@ -149,6 +159,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<int,byte>
 	// System.Collections.Generic.KeyValuePair<int,object>
 	// System.Collections.Generic.KeyValuePair<long,object>
+	// System.Collections.Generic.KeyValuePair<object,System.ValueTuple<object,object>>
 	// System.Collections.Generic.KeyValuePair<object,object>
 	// System.Collections.Generic.LinkedList.Enumerator<object>
 	// System.Collections.Generic.LinkedList<object>
@@ -168,6 +179,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<object>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Guid>
 	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>>
+	// System.Collections.Generic.ObjectEqualityComparer<System.ValueTuple<object,object>>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.Localization.LocaleIdentifier>
 	// System.Collections.Generic.ObjectEqualityComparer<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Collections.Generic.ObjectEqualityComparer<byte>
@@ -201,12 +213,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
+	// System.Nullable<byte>
 	// System.Nullable<int>
 	// System.Predicate<System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>>
 	// System.Predicate<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Predicate<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Predicate<object>
 	// System.ReadOnlySpan<int>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<UnityEngine.Localization.Settings.LocalizedDatabase.TableEntryResult<object,object>>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<object>
@@ -233,6 +247,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Threading.Tasks.TaskFactory<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.TaskFactory<object>
 	// System.ValueTuple<UnityEngine.Localization.LocaleIdentifier,object>
+	// System.ValueTuple<object,object>
 	// UnityEngine.AddressableAssets.AddressablesImpl.<>c__DisplayClass79_0<object>
 	// UnityEngine.Events.InvokableCall<byte>
 	// UnityEngine.Events.InvokableCall<float>
@@ -292,12 +307,35 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object Newtonsoft.Json.JsonConvert.DeserializeObject<object>(string,Newtonsoft.Json.JsonSerializerSettings)
 		// object System.Activator.CreateInstance<object>()
 		// bool System.Linq.Enumerable.All<System.Collections.Generic.KeyValuePair<int,byte>>(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,byte>>,System.Func<System.Collections.Generic.KeyValuePair<int,byte>,bool>)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,RoomView.<HandleLobbyHeartbeat>d__4>(System.Runtime.CompilerServices.TaskAwaiter&,RoomView.<HandleLobbyHeartbeat>d__4&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,CreateRoomView.<CreateRoom>d__6>(System.Runtime.CompilerServices.TaskAwaiter<object>&,CreateRoomView.<CreateRoom>d__6&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,LobbyView.<UpdateListLobbyies>d__4>(System.Runtime.CompilerServices.TaskAwaiter<object>&,LobbyView.<UpdateListLobbyies>d__4&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<CreateRoomView.<CreateRoom>d__6>(CreateRoomView.<CreateRoom>d__6&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<LobbyView.<UpdateListLobbyies>d__4>(LobbyView.<UpdateListLobbyies>d__4&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomView.<HandleLobbyHeartbeat>d__4>(RoomView.<HandleLobbyHeartbeat>d__4&)
+		// bool System.Linq.Enumerable.Any<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RelayManager.<CreateRelay>d__1>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RelayManager.<CreateRelay>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>.Start<RelayManager.<CreateRelay>d__1>(RelayManager.<CreateRelay>d__1&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,RoomManager.<DeleteLobby>d__18>(System.Runtime.CompilerServices.TaskAwaiter&,RoomManager.<DeleteLobby>d__18&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,RoomManager.<HandleLobbyHeartbeat>d__5>(System.Runtime.CompilerServices.TaskAwaiter&,RoomManager.<HandleLobbyHeartbeat>d__5&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,RoomManager.<KickPlayer>d__14>(System.Runtime.CompilerServices.TaskAwaiter&,RoomManager.<KickPlayer>d__14&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,RoomManager.<LeaveLobby>d__13>(System.Runtime.CompilerServices.TaskAwaiter&,RoomManager.<LeaveLobby>d__13&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RelayManager.<JoinRelay>d__2>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RelayManager.<JoinRelay>d__2&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<CreateRoom>d__10>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<CreateRoom>d__10&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<GetListRoom>d__8>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<GetListRoom>d__8&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<JoinRoom>d__11>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<JoinRoom>d__11&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<QuickJoinRoom>d__12>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<QuickJoinRoom>d__12&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<RefreshRoom>d__9>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<RefreshRoom>d__9&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<TransferRoomHost>d__17>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<TransferRoomHost>d__17&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<UpdateLobbyData>d__16>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<UpdateLobbyData>d__16&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,RoomManager.<UpdatePlayerData>d__15>(System.Runtime.CompilerServices.TaskAwaiter<object>&,RoomManager.<UpdatePlayerData>d__15&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RelayManager.<JoinRelay>d__2>(RelayManager.<JoinRelay>d__2&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<CreateRoom>d__10>(RoomManager.<CreateRoom>d__10&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<DeleteLobby>d__18>(RoomManager.<DeleteLobby>d__18&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<GetListRoom>d__8>(RoomManager.<GetListRoom>d__8&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<HandleLobbyHeartbeat>d__5>(RoomManager.<HandleLobbyHeartbeat>d__5&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<JoinRoom>d__11>(RoomManager.<JoinRoom>d__11&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<KickPlayer>d__14>(RoomManager.<KickPlayer>d__14&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<LeaveLobby>d__13>(RoomManager.<LeaveLobby>d__13&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<QuickJoinRoom>d__12>(RoomManager.<QuickJoinRoom>d__12&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<RefreshRoom>d__9>(RoomManager.<RefreshRoom>d__9&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<TransferRoomHost>d__17>(RoomManager.<TransferRoomHost>d__17&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<UpdateLobbyData>d__16>(RoomManager.<UpdateLobbyData>d__16&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<RoomManager.<UpdatePlayerData>d__15>(RoomManager.<UpdatePlayerData>d__15&)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<object>(object)
 		// System.Void UnityEngine.AddressableAssets.Addressables.Release<object>(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.AddressablesImpl.LoadAssetAsync<object>(object)
